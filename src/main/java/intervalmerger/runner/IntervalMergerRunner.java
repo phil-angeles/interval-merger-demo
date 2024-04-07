@@ -1,3 +1,8 @@
+package src.main.java.intervalmerger.runner;
+
+import src.main.java.intervalmerger.interfaces.IntervalMerger;
+import src.main.java.intervalmerger.services.IntervalMergerImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,7 @@
+package src.main.java.intervalmerger.interfaces;
+
+import src.main.java.intervalmerger.services.IntervalMergerImpl;
+
 import java.util.List;
 
 /**
