@@ -47,7 +47,7 @@ public class PerformanceTracker {
      * @return Differenz der Speichernutzung in Bytes.
      */
     public long getUsedMemoryBytes() {
-        return afterUsedMem - beforeUsedMem;
+        return  beforeUsedMem - afterUsedMem;
     }
 }
 
