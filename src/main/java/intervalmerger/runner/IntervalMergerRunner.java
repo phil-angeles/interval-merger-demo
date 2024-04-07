@@ -58,5 +58,24 @@ public class IntervalMergerRunner {
         // Ergebnisse der Laufzeitauswertung sowie Speicherverbrauch ausgeben
         System.out.println("Laufzeit: " + tracker.getElapsedTimeMillis() + " ms");
         System.out.println("Speicherverbrauch: " + tracker.getUsedMemoryBytes() + " Bytes");
+
+        // Optimierte Merge Methode für große Eingaben (Big Data)
+        /*
+            Eine Möglichkeit, die Effizienz bei großen Eingaben zu verbessern, ist die Verwendung einer
+            effizienteren Datenstruktur für die Speicherung und Verarbeitung der Intervalle.
+            Eine solche Struktur könnten Bäume (z.B. siehe meine verwendete TreeMap) oder Heap-basierte Datenstrukturen sein, die schnelle
+            Einfügungs- und Suchoperationen ermöglichen.
+            Für diese Demo im Rahmen des Interviews werde ich jedoch bei einer einfachen Liste bleiben,
+            aber die Art und Weise, wie wir sie verarbeiten, optimieren (Stichwort Sortierung).
+            Ich optimiere den Algorithmus, indem ich die Liste der Intervalle zuerst sortiere und dann
+            in einem Durchgang merge. Das Sortieren ermöglicht es, überlappende Intervalle effizient zu
+            identifizieren und zu mergen, da alle potenziell überlappenden Intervalle nebeneinander liegen.
+         */
+        List<IntervalMergerImpl.Interval> mergedIntervalsBigData = merger.mergeOptimizedForBigDataInput(intervals);
+
+        System.out.println("AddOn: Merged Intervals Big Data Method mithilfe einer Baumstruktur (TreeMap):");
+        for (IntervalMergerImpl.Interval interval : mergedIntervalsBigData) {
+            System.out.println(interval);
+        }
     }
 }

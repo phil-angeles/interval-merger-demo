@@ -2,9 +2,7 @@ package src.main.java.intervalmerger.services;
 
 import src.main.java.intervalmerger.interfaces.IntervalMerger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Diese Implementierung definiert zunächst eine Interval-Klasse,
@@ -64,6 +62,38 @@ public class IntervalMergerImpl implements IntervalMerger {
 
         // Füge das letzte Intervall zur Liste hinzu
         mergedIntervals.add(current);
+
+        return mergedIntervals;
+    }
+
+    @Override
+    public List<Interval> mergeOptimizedForBigDataInput(List<Interval> intervals) {
+        if (intervals == null || intervals.size() <= 1) {
+            return intervals;
+        }
+
+        // Ich verwende eine TreeMap, um die Endpunkte der Intervalle effizient zu verwalten
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+
+        // Einfügen aller Intervalle in die TreeMap, dabei werden überlappende Intervalle direkt gemerged
+        for (Interval interval : intervals) {
+            Map.Entry<Integer, Integer> floorEntry = map.floorEntry(interval.start);
+            if (floorEntry != null && floorEntry.getValue() >= interval.start) {
+                // Überlappendes Intervall gefunden, aktualisiere das existierende Intervall
+                if (floorEntry.getValue() < interval.end) {
+                    map.put(floorEntry.getKey(), interval.end);
+                }
+            } else {
+                // Kein überlappendes Intervall, füge das neue Intervall hinzu
+                map.put(interval.start, interval.end);
+            }
+        }
+
+        // Konvertiere die TreeMap zurück in eine Liste von Intervallen
+        List<Interval> mergedIntervals = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            mergedIntervals.add(new Interval(entry.getKey(), entry.getValue()));
+        }
 
         return mergedIntervals;
     }
